@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Product Price Comparison (App Router)
 
-## Getting Started
+A Next.js application using the App Router that allows users to upload receipt images, extracts product names and prices using AWS Textract, stores them in a PostgreSQL database, and displays a price comparison chart.
 
-First, run the development server:
+## Setup
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Install dependencies**:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   npm install
+   ```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+2. **Set up environment variables**:
+   Create a `.env.local` file with:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```
+   AWS_REGION=your-region
+   AWS_ACCESS_KEY_ID=your-access-key
+   AWS_SECRET_ACCESS_KEY=your-secret-key
+   DB_USER=your-db-user
+   DB_HOST=your-db-host
+   DB_NAME=your-db-name
+   DB_PASSWORD=your-db-password
+   DB_PORT=your-db-port
+   ```
 
-## Learn More
+3. **Set up PostgreSQL**:
+   Create a table with:
 
-To learn more about Next.js, take a look at the following resources:
+   ```sql
+   CREATE TABLE prices (
+     id SERIAL PRIMARY KEY,
+     product VARCHAR(255) NOT NULL,
+     price DECIMAL(10,2) NOT NULL,
+     created_at TIMESTAMP NOT NULL
+   );
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Run the application**:
+   ```bash
+   npm run dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Usage
 
-## Deploy on Vercel
+- Upload a receipt image containing product names and prices.
+- The app will extract the data and display a bar chart comparing prices.
+- The data is stored in the PostgreSQL database for persistence.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Ensure AWS credentials have Textract permissions.
+- Receipt text extraction assumes a simple format (e.g., "Item $price"). Adjust the parsing logic in `lib/aws.js` for specific receipt formats.
+- Minimal styling is used as requested. Add CSS or a styling framework for enhanced UI.
