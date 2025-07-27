@@ -72,7 +72,6 @@ A Next.js application using the App Router that allows users to upload receipt i
 - **Backend**: Next.js API routes for upload and data retrieval
 - **Database**: PostgreSQL with relational design for receipts and prices
 - **AWS Integration**: Textract for OCR with FORMS and TABLES feature types
-- **UI**: Modern inline styling with progress indicators and responsive design
 
 ## Notes
 
