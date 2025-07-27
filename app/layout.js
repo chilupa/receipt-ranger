@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Product Price Comparison",
+  title: "Receipt Ranger",
   description: "Compare product prices from uploaded receipts",
 };
 
